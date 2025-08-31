@@ -81,9 +81,9 @@ def load_sound_file(filename):
             print("Failed to load sound", path, e)
     return None
 
-attack_sound = load_sound_file("attack.wav") or create_sound(880, 0.08, 0.5)
-hit_sound    = load_sound_file("hit.wav")    or create_sound(220, 0.12, 0.5)
-shoot_sound  = load_sound_file("shoot.wav")  or create_sound(1400, 0.05, 0.4)
+attack_sound = load_sound_file("punch.mp3") or create_sound(880, 0.08, 0.5)
+hit_sound    = load_sound_file("hit.mp3")    or create_sound(220, 0.12, 0.5)
+shoot_sound  = load_sound_file("attack.mp3")  or create_sound(1400, 0.05, 0.4)
 bg_music     = load_sound_file("bg_loop.wav") or create_sound(110, 1.0, 0.2)
 if bg_music:
     try:
