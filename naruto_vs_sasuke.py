@@ -110,17 +110,36 @@ if len(map_images) == 0:
     print("No map images found — using color backgrounds.")
 map_colors = [(34,139,34), (139,69,19), (128,128,128)]
 
-# ================== Map Selection Background ==================
-map_select_bg = None
-map_select_bg_path = os.path.join(ASSET_DIR, "map_select_bg.png")
-if os.path.isfile(map_select_bg_path):
+# ================== Background Images for Menus ==================
+start_menu_bg = None
+start_menu_bg_path = os.path.join(ASSET_DIR, "start_menu_bg.png")
+if os.path.isfile(start_menu_bg_path):
     try:
-        img = pygame.image.load(map_select_bg_path).convert()
-        map_select_bg = pygame.transform.scale(img, (SCREEN_WIDTH, SCREEN_HEIGHT))
+        img = pygame.image.load(start_menu_bg_path).convert()
+        start_menu_bg = pygame.transform.scale(img, (SCREEN_WIDTH, SCREEN_HEIGHT))
+        print("Loaded start menu background.")
+    except Exception as e:
+        print("Failed to load start menu background:", e)
+
+controls_bg = None
+controls_bg_path = os.path.join(ASSET_DIR, "controls_bg.png")
+if os.path.isfile(controls_bg_path):
+    try:
+        img = pygame.image.load(controls_bg_path).convert()
+        controls_bg = pygame.transform.scale(img, (SCREEN_WIDTH, SCREEN_HEIGHT))
+        print("Loaded controls background.")
+    except Exception as e:
+        print("Failed to load controls background:", e)
+
+map_selection_bg = None
+map_selection_bg_path = os.path.join(ASSET_DIR, "map_selection_bg.png")
+if os.path.isfile(map_selection_bg_path):
+    try:
+        img = pygame.image.load(map_selection_bg_path).convert()
+        map_selection_bg = pygame.transform.scale(img, (SCREEN_WIDTH, SCREEN_HEIGHT))
         print("Loaded map selection background.")
     except Exception as e:
         print("Failed to load map selection background:", e)
-
 # ================== Sheet loading helpers ==================
 def pil_to_surface_alpha(img: Image.Image) -> pygame.Surface:
     if img.mode != "RGBA":
@@ -556,7 +575,7 @@ start_buttons = [
     Button("Controls", SCREEN_WIDTH//2 - 100, 350, 200, 60, show_controls),
     Button("Quit", SCREEN_WIDTH//2 - 100, 450, 200, 60, quit_game),
 ]
-back_btn = Button("Back", SCREEN_WIDTH//2 - 60, SCREEN_HEIGHT - 100, 120, 50, lambda: set_state("start_menu"))
+back_btn = Button("Back", SCREEN_WIDTH//2 - 60, SCREEN_HEIGHT - 150, 120, 50, lambda: set_state("start_menu"))
 pause_buttons = [
     Button("Resume", SCREEN_WIDTH//2 - 100, 250, 200, 60, resume_game),
     Button("Back to Menu", SCREEN_WIDTH//2 - 100, 350, 200, 60, lambda: set_state("start_menu")),
@@ -564,7 +583,10 @@ pause_buttons = [
 
 # Screens
 def draw_start_menu():
-    screen.fill(BLACK)
+    if start_menu_bg:
+        screen.blit(start_menu_bg, (0, 0))
+    else:
+        screen.fill(BLACK)
     title_font = pygame.font.SysFont(None, 64)
     title = title_font.render("Naruto vs Sasuke", True, WHITE)
     screen.blit(title, (SCREEN_WIDTH//2 - title.get_width()//2, 90))
@@ -573,7 +595,10 @@ def draw_start_menu():
         btn.draw(screen, hover)
 
 def draw_controls_screen():
-    screen.fill(BLACK)
+    if controls_bg:
+        screen.blit(controls_bg, (0, 0))
+    else:
+        screen.fill(BLACK)
     font = pygame.font.SysFont(None, 32)
     lines = [
         "Controls:",
@@ -589,14 +614,11 @@ def draw_controls_screen():
     back_btn.draw(screen, hover)
 
 def draw_map_selection():
-    if map_select_bg:
-        screen.blit(map_select_bg, (0, 0))
+    if map_selection_bg:
+        screen.blit(map_selection_bg, (0, 0))
     else:
         screen.fill(BLACK)
-
     font = pygame.font.SysFont(None, 36)
-    title = font.render("Select a Map", True, WHITE)
-    screen.blit(title, (SCREEN_WIDTH//2 - title.get_width()//2, 40))
 
     for i, m in enumerate(maps):
         rect = map_item_rect(i)
@@ -606,7 +628,6 @@ def draw_map_selection():
         text = font.render(m, True, color)
         screen.blit(text, (rect.centerx - text.get_width()//2,
                            rect.centery - text.get_height()//2))
-
     hint = font.render("Click a map to start playing", True, WHITE)
     screen.blit(hint, (SCREEN_WIDTH//2 - hint.get_width()//2, SCREEN_HEIGHT - 60))
     
