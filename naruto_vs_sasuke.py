@@ -28,7 +28,7 @@ SHEET_CFG_NARUTO = {"mode": "autoscan_row", "expected": 4, "crop_bottom_px": 64}
 SHEET_CFG_SASUKE = {"mode": "autoscan_row", "expected": 4, "crop_bottom_px": 64}
 
 # Shooting tuning
-BULLET_SPEED = 14
+BULLET_SPEED = 9
 BULLET_DAMAGE = 12
 SHOOT_COOLDOWN_FRAMES = 18  # ~3 shots/sec at 60 fps
 
@@ -81,9 +81,9 @@ def load_sound_file(filename):
             print("Failed to load sound", path, e)
     return None
 
-attack_sound = load_sound_file("attack.wav") or create_sound(880, 0.08, 0.5)
-hit_sound    = load_sound_file("hit.wav")    or create_sound(220, 0.12, 0.5)
-shoot_sound  = load_sound_file("shoot.wav")  or create_sound(1400, 0.05, 0.4)
+attack_sound = load_sound_file("punch.mp3") or create_sound(880, 0.08, 0.5)
+hit_sound    = load_sound_file("hit.mp3")    or create_sound(220, 0.12, 0.5)
+shoot_sound  = load_sound_file("attack.mp3")  or create_sound(1400, 0.05, 0.4)
 bg_music     = load_sound_file("bg_loop.wav") or create_sound(110, 1.0, 0.2)
 if bg_music:
     try:
