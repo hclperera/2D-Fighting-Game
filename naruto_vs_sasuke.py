@@ -28,7 +28,7 @@ SHEET_CFG_NARUTO = {"mode": "autoscan_row", "expected": 4, "crop_bottom_px": 64}
 SHEET_CFG_SASUKE = {"mode": "autoscan_row", "expected": 4, "crop_bottom_px": 64}
 
 # Shooting tuning
-BULLET_SPEED = 14
+BULLET_SPEED = 9
 BULLET_DAMAGE = 12
 SHOOT_COOLDOWN_FRAMES = 18  # ~3 shots/sec at 60 fps
 
